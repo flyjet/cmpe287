@@ -1,14 +1,12 @@
 package edu.sjsu.cmpe287;
 
-import android.os.RemoteException;
-
 import com.android.uiautomator.core.UiObject;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import com.android.uiautomator.core.UiScrollable;
 import com.android.uiautomator.core.UiSelector;
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 
-public class TripAdvisorFirst extends UiAutomatorTestCase {
+public class UI_SHOPPING_TEST29 extends UiAutomatorTestCase {
 	
 	public void testDemo() throws UiObjectNotFoundException {  
 		
@@ -42,40 +40,62 @@ public class TripAdvisorFirst extends UiAutomatorTestCase {
 		//click the app of "TripAdvisor"
 		tripAdvisorApp.clickAndWaitForNewWindow();		
 		
-		//click "Hotel"
-		UiObject hotelItem = new UiObject(new UiSelector().className("android.widget.LinearLayout")
+		//click "Nearme now"
+		UiObject nearmeItem = new UiObject(new UiSelector().className("android.widget.LinearLayout")
 				.childSelector(new UiSelector().className("android.widget.LinearLayout"))
-				.childSelector(new UiSelector().text("Hotels")) );		
+				.childSelector(new UiSelector().text("Near Me Now")) );		
 		
-		hotelItem.clickAndWaitForNewWindow();
+		nearmeItem.clickAndWaitForNewWindow();
 		
-		//click "Select a Location"
-		UiObject selectLocation = new UiObject(new UiSelector().className("android.widget.RelativeLayout")
-				.childSelector(new UiSelector().text("Location")));	
-		selectLocation.clickAndWaitForNewWindow();
+		//click "shopping"
+		UiObject shoppingItem = new UiObject(new UiSelector().resourceId("com.tripadvisor.tripadvisor:id/item")
+				.childSelector(new UiSelector().index(0))
+				.childSelector(new UiSelector().index(1))
+				.childSelector(new UiSelector().text("Shopping")));	
+		shoppingItem.clickAndWaitForNewWindow();
 		
-		//set location to search hotel		
-		UiObject locaitonInput = new UiObject(new UiSelector().className("android.widget.RelativeLayout")
-				.childSelector(new UiSelector().index(1)));		
-		String location = "San Jose";		
-		locaitonInput.clearTextField();		
-		locaitonInput.setText(location);		
-		//???? How to clear the history input data  ??????//
-		
-		
-		//select the first one 
-		UiObject firstLocaiton = new UiObject(new UiSelector().className("android.widget.ListView")
-				.childSelector(new UiSelector().index(2)).childSelector(new UiSelector().text(location)));		
-		firstLocaiton.clickAndWaitForNewWindow();
-		
-		//Click search button		
-		UiObject searchButton = new UiObject(new UiSelector().className("android.widget.Button").text("Search"));	
-		searchButton.clickAndWaitForNewWindow();
 		
 		//Click Map to show the search result in the map
 		UiObject mapView = new UiObject(new UiSelector().className("android.widget.TextView").text("Map"));	
 		mapView.clickAndWaitForNewWindow();
+				
+		//Click one shopping object
+		UiObject shoppingView = new UiObject(new UiSelector().className("android.view.View")
+				.childSelector(new UiSelector().index(10)));
+		shoppingView.click();
+				
+		//Click in for the select shopping
+		getUiDevice().click(358,436);
+		sleep(5000);
 		
+        //click the map button on the left top
+        UiObject mapButton = new UiObject(new UiSelector().
+				resourceId("com.tripadvisor.tripadvisor:id/mapLayout")
+				.childSelector(new UiSelector().text("Map")));
+        mapButton.clickAndWaitForNewWindow();
+        sleep(5000);
+        
+		//click location button on the right bottom
+        UiObject overlayButton = new UiObject(new UiSelector().
+ 				resourceId("com.tripadvisor.tripadvisor:id/mapOverlayButton"));
+         overlayButton.click();
+         sleep(5000);
+         
+         
+        //check the button of hotel
+        UiObject hotelradioButton = new UiObject(new UiSelector().
+  				resourceId("com.tripadvisor.tripadvisor:id/hotelsLayout"));    
+        hotelradioButton.click();       
+        sleep(5000);
+        //click OK
+        UiObject okButton = new UiObject(new UiSelector().
+  				resourceId("android:id/button3").text("OK"));    
+        okButton.click();
+              
+        
+				
+         
+		/*
 		
 		//Click Zoom In
 		UiObject zoomIn = new UiObject(new UiSelector().resourceId("com.tripadvisor.tripadvisor:id/googleMapView")
@@ -88,33 +108,10 @@ public class TripAdvisorFirst extends UiAutomatorTestCase {
 				.childSelector(new UiSelector().index(0)).childSelector(new UiSelector().index(2))
 				.childSelector(new UiSelector().index(1)).childSelector(new UiSelector().index(1)));
 		zoomOut.click();
-		
-		
-		//Click one hotel object
-
-		UiObject hotelView = new UiObject(new UiSelector().className("android.view.View")
-				.childSelector(new UiSelector().index(34)));
-		hotelView.click();
 
 		
-		/*
-		UiObject rest1 = new UiObject(new UiSelector().className("android.widget.FrameLayout")
-				.childSelector(new UiSelector().index(0)).childSelector(new UiSelector().index(1))
-				.childSelector(new UiSelector().index(0)).childSelector(new UiSelector().index(0))
-				.childSelector(new UiSelector().index(0)).childSelector(new UiSelector().index(2))
-				.childSelector(new UiSelector().index(0)).childSelector(new UiSelector().index(0))
-				.childSelector(new UiSelector().index(0)).childSelector(new UiSelector().index(0))
-				.childSelector(new UiSelector().index(34)));
-		rest1.clickAndWaitForNewWindow();  */
-		
-		
-		
-				
-		//Click in for the select hotel
-		getUiDevice().click(426,426);
-		
-		
-		/* =============== service of showing Photo ================*/
+		//=============== service of showing Photo ================
+	
 		//Click photo
 		UiObject photoView = new UiObject(new UiSelector().
 				resourceId("com.tripadvisor.tripadvisor:id/photo"));	
@@ -127,8 +124,7 @@ public class TripAdvisorFirst extends UiAutomatorTestCase {
 		photoOne.clickAndWaitForNewWindow();
 
 		
-		//Swiping the photo 4 times
-		
+		//Swiping the photo 4 times		
 		UiScrollable scrollPhoto = new UiScrollable(new UiSelector().resourceId("com.tripadvisor.tripadvisor:id/viewpager").scrollable(true));
 			   
 		// Set the swiping mode to horizontal (the default is vertical)
@@ -141,17 +137,58 @@ public class TripAdvisorFirst extends UiAutomatorTestCase {
         UiObject doneButton = new UiObject(new UiSelector().
 				resourceId("com.tripadvisor.tripadvisor:id/headerRightButton"));
         doneButton.clickAndWaitForNewWindow();
-        doneButton.clickAndWaitForNewWindow();
+        doneButton.clickAndWaitForNewWindow(); 
         
         
-        /* =============== service of showing map and direction================*/
+        // =============== service of Call================
+        sleep(2000);
+        UiObject callButton = new UiObject(new UiSelector().
+        		resourceId("com.tripadvisor.tripadvisor:id/toolbarCallLayout"));
+        callButton.clickAndWaitForNewWindow();
         
-        //click the map button on the left top
-        UiObject mapButton = new UiObject(new UiSelector().
-				resourceId("com.tripadvisor.tripadvisor:id/mapLayout")
-				.childSelector(new UiSelector().text("Map")));
-        mapButton.clickAndWaitForNewWindow();
+   
+        //to back to app
+        sleep(2000);
+        getUiDevice().pressBack();
+        getUiDevice().pressBack();  
+		
         
+        // =============== service of Shopping website ================
+        UiScrollable scrollView = new UiScrollable(new UiSelector().
+        		resourceId("com.tripadvisor.tripadvisor:id/scrollView"));
+        
+        scrollView.scrollForward();
+        scrollView.scrollForward();
+        scrollView.scrollForward();
+        scrollView.scrollForward();
+        scrollView.scrollForward();
+        scrollView.scrollBackward();
+        scrollView.scrollBackward();
+        scrollView.scrollBackward();
+        scrollView.scrollBackward();
+        
+        UiObject websiteButton = new UiObject(new UiSelector().
+        		resourceId("com.tripadvisor.tripadvisor:id/websiteLayout")
+        		.childSelector(new UiSelector().text("Visit Website")));
+       websiteButton.clickAndWaitForNewWindow();
+       sleep(7000);
+       getUiDevice().pressBack();
+       scrollView.scrollForward();
+       
+       
+       // =============== service of shopping Overview ================
+       UiObject hotelOverview = new UiObject(new UiSelector().
+       		resourceId("com.tripadvisor.tripadvisor:id/descriptionAmenitiesLayout"));
+       
+       hotelOverview.clickAndWaitForNewWindow();
+       sleep(3000);
+       getUiDevice().pressBack();
+       getUiDevice().pressBack();
+       
+
+             
+        // =============== service of showing map and direction================
+               
 		//click location button on the left bottom
         UiObject locationButton = new UiObject(new UiSelector().
  				resourceId("com.tripadvisor.tripadvisor:id/myLocationButton"));
@@ -172,34 +209,17 @@ public class TripAdvisorFirst extends UiAutomatorTestCase {
         		 .text("Start navigation"));
          startNav.clickAndWaitForNewWindow();
          
-         try {
-        	    Thread.sleep(4000);                 
-        	} catch(InterruptedException ex) {
-        	    Thread.currentThread().interrupt();
-        	}
          
-         
-         //Back to app
-         try {
-        	 	 getUiDevice().pressRecentApps();
-         	 } catch (RemoteException e) {
-         		 e.printStackTrace();
-		     }
-         
-         UiObject backToApp = new UiObject(new UiSelector().className("android.widget.FrameLayout")
-        		 .childSelector(new UiSelector().index(0))
-        		 .childSelector(new UiSelector().text("TripAdvisor"))); 
-         
-         //?? working on
-         /*
-         if(backToApp.click()){
-        	 System.out.println(" click back to app");
-         } else{
-        	 System.out.println(" not back to app");
-         }
-         backToApp.clickAndWaitForNewWindow(); */
-       
+         getUiDevice().pressBack();
+         sleep(2000);
 
+         getUiDevice().pressBack();
+         getUiDevice().pressBack();
+         getUiDevice().pressBack();
+         getUiDevice().pressBack();
+         getUiDevice().pressBack();
+         
+       */  
          
 	}
 	
